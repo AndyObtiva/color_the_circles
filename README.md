@@ -1,7 +1,13 @@
 # Color The Circles
 ## Glimmer DSL for LibUI Application
+## [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=40 /> Glimmer DSL for LibUI Application](https://github.com/AndyObtiva/glimmer-dsl-libui)
+[![Gem Version](https://badge.fury.io/rb/color_the_circles.svg)](http://badge.fury.io/rb/color_the_circles)
 
-Color The Circles is a game in which you must color all drawn circles to win. Your score starts negative, as the number of drawn uncolored circles in negative, and every time you color a circle, you add to it. You win when your score reaches 0.
+Color The Circles is a game in which you must color all drawn circles to win. Your score starts negative, as the number of drawn uncolored circles in negative, and every time you color a circle, you add to it. If your score reaches -20, you lose. If your score reaches 0, you win.
+
+Mac | Windows | Linux
+----|---------|------
+![glimmer-dsl-libui-mac-color-the-circles.png](/screenshots/glimmer-dsl-libui-mac-color-the-circles.png) ![glimmer-dsl-libui-mac-color-the-circles-lost.png](/screenshots/glimmer-dsl-libui-mac-color-the-circles-lost.png) ![glimmer-dsl-libui-mac-color-the-circles-won.png](/screenshots/glimmer-dsl-libui-mac-color-the-circles-won.png) | ![glimmer-dsl-libui-windows-color-the-circles.png](/screenshots/glimmer-dsl-libui-windows-color-the-circles.png) ![glimmer-dsl-libui-windows-color-the-circles-lost.png](/screenshots/glimmer-dsl-libui-windows-color-the-circles-lost.png) ![glimmer-dsl-libui-windows-color-the-circles-won.png](/screenshots/glimmer-dsl-libui-windows-color-the-circles-won.png) | ![glimmer-dsl-libui-linux-color-the-circles.png](/screenshots/glimmer-dsl-libui-linux-color-the-circles.png) ![glimmer-dsl-libui-linux-color-the-circles-lost.png](/screenshots/glimmer-dsl-libui-linux-color-the-circles-lost.png) ![glimmer-dsl-libui-linux-color-the-circles-won.png](/screenshots/glimmer-dsl-libui-linux-color-the-circles-won.png)
 
 ## Setup
 
@@ -37,3 +43,8 @@ color_the_circles
 
 Copyright (c) 2023 Andy Maleh. See
 [LICENSE.txt](LICENSE.txt) for further details.
+
+
+--
+
+[<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=40 />](https://github.com/AndyObtiva/glimmer) Built with [Glimmer DSL for LibUI](https://github.com/AndyObtiva/glimmer-dsl-libui) (Prerequisite-Free Ruby Desktop Development Cross-Platform Native GUI Library)
