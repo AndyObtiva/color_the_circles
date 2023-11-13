@@ -1,3 +1,5 @@
+require 'color_the_circles/model/game'
+
 class ColorTheCircles
   module View
     class ColorTheCircles
@@ -14,11 +16,9 @@ class ColorTheCircles
       TIME_MAX_HARD = 2
       TIME_MAX_INSANE = 1
     
-      attr_accessor :score
-          
       before_body do
+        @game = Model::Game.new
         @circles_data = []
-        @score = 0
         @time_max = TIME_MAX_HARD
         @game_over = false
         
@@ -63,7 +63,7 @@ class ColorTheCircles
                 stretchy false
               }
               
-              @score_label = label(@score.to_s) {
+              @score_label = label(@game.score.to_s) {
                 stretchy false
               }
             }
@@ -149,7 +149,7 @@ class ColorTheCircles
       
       def register_observers
         # observe automatically enhances self to become Glimmer::DataBinding::ObservableModel and notify observer block of score attribute changes
-        observe(self, :score) do |new_score|
+        observe(@game, :score) do |new_score|
           Glimmer::LibUI.queue_main do
             @score_label.text = new_score.to_s
             if new_score == -20
@@ -192,11 +192,11 @@ class ColorTheCircles
           stroke: stroke_color
         }
         @area.queue_redraw_all
-        self.score -= 1 # notifies score observers automatically of change
+        @game.score -= 1 # notifies score observers automatically of change
       end
       
       def restart_game
-        @score = 0 # update variable directly to avoid notifying observers
+        @game.restart_game
         @circles_data.clear
         @game_over = false
       end
@@ -209,7 +209,7 @@ class ColorTheCircles
           clicked_circle_data[:fill] = clicked_circle_data[:stroke]
           push_colored_circle_behind_uncolored_circles(clicked_circle_data)
           @area.queue_redraw_all
-          self.score += 1 # notifies score observers automatically of change
+          @game.score += 1 # notifies score observers automatically of change
         end
       end
       
