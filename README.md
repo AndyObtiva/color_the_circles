@@ -1,9 +1,21 @@
-color_the_circles===================
+# Color The Circles
+## Glimmer DSL for LibUI Application
 
-Description goes here.
+Color The Circles is a game in which you must color all drawn circles to win. Your score starts negative, as the number of drawn uncolored circles in negative, and every time you color a circle, you add to it. You win when your score reaches 0.
 
-Contributing to color_the_circles
-------------------------------------------
+## Setup
+
+```
+gem install color_the_circles
+```
+
+## Run
+
+```
+color_the_circles
+```
+
+## Contributing to color_the_circles
 
 -   Check out the latest master to make sure the feature hasn't been
     implemented or the bug hasn't been fixed yet.
@@ -19,8 +31,9 @@ Contributing to color_the_circles
     is fine, but please isolate to its own commit so I can cherry-pick
     around it.
 
-Copyright
----------
+## Copyright
+
+[MIT](LICENSE.txt)
 
 Copyright (c) 2023 Andy Maleh. See
-LICENSE.txt for further details.
+[LICENSE.txt](LICENSE.txt) for further details.
