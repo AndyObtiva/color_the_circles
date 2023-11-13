@@ -63,8 +63,10 @@ class ColorTheCircles
                 stretchy false
               }
               
-              @score_label = label(@game.score.to_s) {
+              label {
                 stretchy false
+                
+                text <= [@game, :score, on_read: :to_s]
               }
             }
             
@@ -148,18 +150,21 @@ class ColorTheCircles
       end
       
       def register_observers
-        # observe automatically enhances self to become Glimmer::DataBinding::ObservableModel and notify observer block of score attribute changes
         observe(@game, :score) do |new_score|
-          Glimmer::LibUI.queue_main do
-            @score_label.text = new_score.to_s
-            if new_score == -20
-              @game_over = true
-              msg_box('You Lost!', 'Sorry! Your score reached -20')
-              restart_game
-            elsif new_score == 0
-              @game_over = true
-              msg_box('You Won!', 'Congratulations! Your score reached 0')
-              restart_game
+          if !@handling_game_score
+            Glimmer::LibUI.queue_main do
+              @handling_game_score = true
+              @game.score = new_score
+              if new_score == -20
+                @game_over = true
+                msg_box('You Lost!', 'Sorry! Your score reached -20')
+                restart_game
+              elsif new_score == 0
+                @game_over = true
+                msg_box('You Won!', 'Congratulations! Your score reached 0')
+                restart_game
+              end
+              @handling_game_score = nil
             end
           end
         end
