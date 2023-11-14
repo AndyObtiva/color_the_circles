@@ -192,9 +192,7 @@ class ColorTheCircles
       end
       
       def color_circle(x, y)
-        clicked_circle_data = @board.circles_data.find do |circle_data|
-          circle_data[:fill].nil? && circle_data[:circle]&.contain?(x, y)
-        end
+        clicked_circle_data = @board.find_circle(x, y)
         if clicked_circle_data
           @board.fill_circle(clicked_circle_data)
           @area.queue_redraw_all
