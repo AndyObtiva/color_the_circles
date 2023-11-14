@@ -9,10 +9,16 @@ class ColorTheCircles
       MARGIN_WIDTH = 55
       MARGIN_HEIGHT = 155
     
-      attr_accessor :circles_data
+      attr_reader :game, :circles_data
       
-      def initialize
+      def initialize(game)
+        @game = game
         @circles_data = []
+      end
+      
+      def restart_game
+        game.restart_game
+        circles_data.clear
       end
       
       def add_circle
@@ -25,7 +31,16 @@ class ColorTheCircles
           fill: nil,
           stroke: stroke_color
         }
+        game.score -= 1 # notifies score observers automatically of change
       end
+      
+      def fill_circle(circle_data)
+        circle_data[:fill] = circle_data[:stroke]
+        push_colored_circle_behind_uncolored_circles(circle_data)
+        game.score += 1 # notifies score observers automatically of change
+      end
+      
+      private
       
       def push_colored_circle_behind_uncolored_circles(colored_circle_data)
         removed_colored_circle_data = circles_data.delete(colored_circle_data)

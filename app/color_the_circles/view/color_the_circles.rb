@@ -13,7 +13,7 @@ class ColorTheCircles
     
       before_body do
         @game = Model::Game.new
-        @board = Presenter::Board.new
+        @board = Presenter::Board.new(@game)
         @time_max = TIME_MAX_HARD
         @game_over = false
         
@@ -184,12 +184,10 @@ class ColorTheCircles
       def add_circle
         @board.add_circle
         @area.queue_redraw_all
-        @game.score -= 1 # notifies score observers automatically of change
       end
       
       def restart_game
-        @game.restart_game
-        @board.circles_data.clear
+        @board.restart_game
         @game_over = false
       end
       
@@ -198,10 +196,8 @@ class ColorTheCircles
           circle_data[:fill].nil? && circle_data[:circle]&.contain?(x, y)
         end
         if clicked_circle_data
-          clicked_circle_data[:fill] = clicked_circle_data[:stroke]
-          @board.push_colored_circle_behind_uncolored_circles(clicked_circle_data)
+          @board.fill_circle(clicked_circle_data)
           @area.queue_redraw_all
-          @game.score += 1 # notifies score observers automatically of change
         end
       end
     end
