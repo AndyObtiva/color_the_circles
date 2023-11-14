@@ -6,13 +6,6 @@ class ColorTheCircles
     class ColorTheCircles
       include Glimmer::LibUI::Application
     
-      WINDOW_WIDTH = 800
-      WINDOW_HEIGHT = 600
-      COLOR_RANGE = (0..200)
-      SHAPE_MIN_SIZE = 15
-      SHAPE_MAX_SIZE = 75
-      MARGIN_WIDTH = 55
-      MARGIN_HEIGHT = 155
       TIME_MAX_EASY = 4
       TIME_MAX_MEDIUM = 3
       TIME_MAX_HARD = 2
@@ -30,7 +23,7 @@ class ColorTheCircles
       end
       
       body {
-        window('Color The Circles', WINDOW_WIDTH, WINDOW_HEIGHT) {
+        window('Color The Circles', Presenter::CircleCollection::WINDOW_WIDTH, Presenter::CircleCollection::WINDOW_HEIGHT) {
           margined true
           
           grid {
@@ -82,7 +75,7 @@ class ColorTheCircles
     
               on_draw do |area_draw_params|
                 path {
-                  rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)
+                  rectangle(0, 0, Presenter::CircleCollection::WINDOW_WIDTH, Presenter::CircleCollection::WINDOW_HEIGHT)
     
                   fill :white
                 }
@@ -189,15 +182,7 @@ class ColorTheCircles
       end
       
       def add_circle
-        circle_x = rand * (WINDOW_WIDTH - MARGIN_WIDTH - SHAPE_MAX_SIZE) + SHAPE_MAX_SIZE
-        circle_y = rand * (WINDOW_HEIGHT - MARGIN_HEIGHT - SHAPE_MAX_SIZE) + SHAPE_MAX_SIZE
-        circle_size = rand * (SHAPE_MAX_SIZE - SHAPE_MIN_SIZE) + SHAPE_MIN_SIZE
-        stroke_color = [rand(COLOR_RANGE), rand(COLOR_RANGE), rand(COLOR_RANGE)]
-        @circle_collection.circles_data << {
-          args: [circle_x, circle_y, circle_size],
-          fill: nil,
-          stroke: stroke_color
-        }
+        @circle_collection.add_circle
         @area.queue_redraw_all
         @game.score -= 1 # notifies score observers automatically of change
       end
