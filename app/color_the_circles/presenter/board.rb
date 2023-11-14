@@ -1,6 +1,6 @@
 class ColorTheCircles
   module Presenter
-    class CircleCollection
+    class Board
       WINDOW_WIDTH = 800
       WINDOW_HEIGHT = 600
       COLOR_RANGE = (0..200)

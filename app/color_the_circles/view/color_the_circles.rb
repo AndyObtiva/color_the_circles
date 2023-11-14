@@ -1,5 +1,5 @@
 require 'color_the_circles/model/game'
-require 'color_the_circles/presenter/circle_collection'
+require 'color_the_circles/presenter/board'
 
 class ColorTheCircles
   module View
@@ -13,7 +13,7 @@ class ColorTheCircles
     
       before_body do
         @game = Model::Game.new
-        @circle_collection = Presenter::CircleCollection.new
+        @board = Presenter::Board.new
         @time_max = TIME_MAX_HARD
         @game_over = false
         
@@ -23,7 +23,7 @@ class ColorTheCircles
       end
       
       body {
-        window('Color The Circles', Presenter::CircleCollection::WINDOW_WIDTH, Presenter::CircleCollection::WINDOW_HEIGHT) {
+        window('Color The Circles', Presenter::Board::WINDOW_WIDTH, Presenter::Board::WINDOW_HEIGHT) {
           margined true
           
           grid {
@@ -75,12 +75,12 @@ class ColorTheCircles
     
               on_draw do |area_draw_params|
                 path {
-                  rectangle(0, 0, Presenter::CircleCollection::WINDOW_WIDTH, Presenter::CircleCollection::WINDOW_HEIGHT)
+                  rectangle(0, 0, Presenter::Board::WINDOW_WIDTH, Presenter::Board::WINDOW_HEIGHT)
     
                   fill :white
                 }
     
-                @circle_collection.circles_data.each do |circle_data|
+                @board.circles_data.each do |circle_data|
                   circle_data[:circle] = circle(*circle_data[:args]) {
                     fill circle_data[:fill]
                     stroke circle_data[:stroke]
@@ -168,9 +168,9 @@ class ColorTheCircles
       def setup_circle_factory
         consumer = Proc.new do
           unless @game_over
-            if @circle_collection.circles_data.empty?
+            if @board.circles_data.empty?
               # start with 3 circles to make more challenging
-              add_circle until @circle_collection.circles_data.size > 3
+              add_circle until @board.circles_data.size > 3
             else
               add_circle
             end
@@ -182,19 +182,19 @@ class ColorTheCircles
       end
       
       def add_circle
-        @circle_collection.add_circle
+        @board.add_circle
         @area.queue_redraw_all
         @game.score -= 1 # notifies score observers automatically of change
       end
       
       def restart_game
         @game.restart_game
-        @circle_collection.circles_data.clear
+        @board.circles_data.clear
         @game_over = false
       end
       
       def color_circle(x, y)
-        clicked_circle_data = @circle_collection.circles_data.find do |circle_data|
+        clicked_circle_data = @board.circles_data.find do |circle_data|
           circle_data[:fill].nil? && circle_data[:circle]&.contain?(x, y)
         end
         if clicked_circle_data
@@ -206,10 +206,10 @@ class ColorTheCircles
       end
       
       def push_colored_circle_behind_uncolored_circles(colored_circle_data)
-        removed_colored_circle_data = @circle_collection.circles_data.delete(colored_circle_data)
-        last_colored_circle_data = @circle_collection.circles_data.select {|cd| cd[:fill]}.last
-        last_colored_circle_data_index = @circle_collection.circles_data.index(last_colored_circle_data) || -1
-        @circle_collection.circles_data.insert(last_colored_circle_data_index + 1, removed_colored_circle_data)
+        removed_colored_circle_data = @board.circles_data.delete(colored_circle_data)
+        last_colored_circle_data = @board.circles_data.select {|cd| cd[:fill]}.last
+        last_colored_circle_data_index = @board.circles_data.index(last_colored_circle_data) || -1
+        @board.circles_data.insert(last_colored_circle_data_index + 1, removed_colored_circle_data)
       end
     end
   end
