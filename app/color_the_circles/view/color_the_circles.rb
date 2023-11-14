@@ -1,4 +1,5 @@
 require 'color_the_circles/model/game'
+require 'color_the_circles/presenter/circle_collection'
 
 class ColorTheCircles
   module View
@@ -19,7 +20,7 @@ class ColorTheCircles
     
       before_body do
         @game = Model::Game.new
-        @circles_data = []
+        @circle_collection = Presenter::CircleCollection.new
         @time_max = TIME_MAX_HARD
         @game_over = false
         
@@ -86,7 +87,7 @@ class ColorTheCircles
                   fill :white
                 }
     
-                @circles_data.each do |circle_data|
+                @circle_collection.circles_data.each do |circle_data|
                   circle_data[:circle] = circle(*circle_data[:args]) {
                     fill circle_data[:fill]
                     stroke circle_data[:stroke]
@@ -174,9 +175,9 @@ class ColorTheCircles
       def setup_circle_factory
         consumer = Proc.new do
           unless @game_over
-            if @circles_data.empty?
+            if @circle_collection.circles_data.empty?
               # start with 3 circles to make more challenging
-              add_circle until @circles_data.size > 3
+              add_circle until @circle_collection.circles_data.size > 3
             else
               add_circle
             end
@@ -192,7 +193,7 @@ class ColorTheCircles
         circle_y = rand * (WINDOW_HEIGHT - MARGIN_HEIGHT - SHAPE_MAX_SIZE) + SHAPE_MAX_SIZE
         circle_size = rand * (SHAPE_MAX_SIZE - SHAPE_MIN_SIZE) + SHAPE_MIN_SIZE
         stroke_color = [rand(COLOR_RANGE), rand(COLOR_RANGE), rand(COLOR_RANGE)]
-        @circles_data << {
+        @circle_collection.circles_data << {
           args: [circle_x, circle_y, circle_size],
           fill: nil,
           stroke: stroke_color
@@ -203,12 +204,12 @@ class ColorTheCircles
       
       def restart_game
         @game.restart_game
-        @circles_data.clear
+        @circle_collection.circles_data.clear
         @game_over = false
       end
       
       def color_circle(x, y)
-        clicked_circle_data = @circles_data.find do |circle_data|
+        clicked_circle_data = @circle_collection.circles_data.find do |circle_data|
           circle_data[:fill].nil? && circle_data[:circle]&.contain?(x, y)
         end
         if clicked_circle_data
@@ -220,10 +221,10 @@ class ColorTheCircles
       end
       
       def push_colored_circle_behind_uncolored_circles(colored_circle_data)
-        removed_colored_circle_data = @circles_data.delete(colored_circle_data)
-        last_colored_circle_data = @circles_data.select {|cd| cd[:fill]}.last
-        last_colored_circle_data_index = @circles_data.index(last_colored_circle_data) || -1
-        @circles_data.insert(last_colored_circle_data_index + 1, removed_colored_circle_data)
+        removed_colored_circle_data = @circle_collection.circles_data.delete(colored_circle_data)
+        last_colored_circle_data = @circle_collection.circles_data.select {|cd| cd[:fill]}.last
+        last_colored_circle_data_index = @circle_collection.circles_data.index(last_colored_circle_data) || -1
+        @circle_collection.circles_data.insert(last_colored_circle_data_index + 1, removed_colored_circle_data)
       end
     end
   end
