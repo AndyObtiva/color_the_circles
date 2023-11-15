@@ -1,4 +1,4 @@
-# Color The Circles
+# <img alt="Color The Circles Icon" src="https://raw.githubusercontent.com/AndyObtiva/color_the_circles/master/icons/linux/Color%20The%20Circles.png" height=85 /> Color The Circles
 ## Glimmer DSL for LibUI Application
 ## [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=40 /> Glimmer DSL for LibUI Application](https://github.com/AndyObtiva/glimmer-dsl-libui)
 [![Gem Version](https://badge.fury.io/rb/color_the_circles.svg)](http://badge.fury.io/rb/color_the_circles)
@@ -48,3 +48,5 @@ Copyright (c) 2023 Andy Maleh. See
 --
 
 [<img src="https://raw.githubusercontent.com/AndyObtiva/glimmer/master/images/glimmer-logo-hi-res.png" height=40 />](https://github.com/AndyObtiva/glimmer) Built with [Glimmer DSL for LibUI](https://github.com/AndyObtiva/glimmer-dsl-libui) (Prerequisite-Free Ruby Desktop Development Cross-Platform Native GUI Library)
+
+<a href="https://www.flaticon.com/free-icon/intersection_1555803?term=circle+color&page=1&position=64&origin=search&related_id=1555803" title="circle color icons">Color The Circles icons created by iconixar - Flaticon</a>
