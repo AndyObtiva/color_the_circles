@@ -18,11 +18,11 @@ Juwelier::Tasks.new do |gem|
   gem.homepage = "http://github.com/AndyObtiva/color_the_circles"
   gem.license = "MIT"
   gem.summary = %Q{Color The Circles}
-  gem.description = %Q{Color The Circles}
+  gem.description = %Q{Color The Circles game (desktop application) produced during RubyConf 2023 Community Day Glimmer Desktop Hacking event using Glimmer DSL for LibUI Application Scaffolding and refactoring of original example.}
   gem.email = "andy.am@gmail.com"
   gem.authors = ["Andy Maleh"]
 
-  gem.files = Dir['VERSION', 'LICENSE.txt', 'app/**/*', 'bin/**/*', 'config/**/*', 'db/**/*', 'docs/**/*', 'fonts/**/*', 'icons/**/*', 'images/**/*', 'lib/**/*', 'script/**/*', 'sounds/**/*', 'videos/**/*']
+  gem.files = Dir['color_the_circles.gemspec', 'VERSION', 'LICENSE.txt', 'app/**/*', 'bin/**/*', 'config/**/*', 'db/**/*', 'docs/**/*', 'fonts/**/*', 'icons/**/*', 'images/**/*', 'lib/**/*', 'script/**/*', 'sounds/**/*', 'videos/**/*']
   gem.require_paths = ['lib', 'app']
   gem.executables = ['color_the_circles']
   # dependencies defined in Gemfile
