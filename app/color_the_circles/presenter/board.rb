@@ -34,11 +34,17 @@ class ColorTheCircles
         game.score -= 1 # notifies score observers automatically of change
       end
       
+      def fill_circle(x, y)
+        circle_data = find_circle(x, y)
+        fill_circle_for_circle_data(circle_data) if circle_data
+        circle_data
+      end
+      
       def find_circle(x, y)
         circles_data.find { |circle_data| circle_data[:fill].nil? && circle_data[:circle]&.contain?(x, y) }
       end
       
-      def fill_circle(circle_data)
+      def fill_circle_for_circle_data(circle_data)
         circle_data[:fill] = circle_data[:stroke]
         push_colored_circle_behind_uncolored_circles(circle_data)
         game.score += 1 # notifies score observers automatically of change

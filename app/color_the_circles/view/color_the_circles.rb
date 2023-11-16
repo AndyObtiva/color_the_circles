@@ -192,11 +192,8 @@ class ColorTheCircles
       end
       
       def color_circle(x, y)
-        clicked_circle_data = @board.find_circle(x, y)
-        if clicked_circle_data
-          @board.fill_circle(clicked_circle_data)
-          @area.queue_redraw_all
-        end
+        found_circle_data = @board.fill_circle(x, y)
+        @area.queue_redraw_all if found_circle_data
       end
     end
   end
